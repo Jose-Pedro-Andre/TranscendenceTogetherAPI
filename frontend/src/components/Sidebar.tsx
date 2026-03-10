@@ -6,7 +6,7 @@ import  Header  from "./Header.tsx";
 const navItems = [
   { icon: Home, label: "Home", path: "/home" },
   { icon: BarChart2, label: "Overview", path: "/overview" },
-  { icon: Tv, label: "My Rooms", path: "/myrooms" },
+  { icon: Tv, label: "Rooms", path: "/rooms" },
   { icon: Users, label: "Friends", path: "/friends" },
   { icon: MessageCircle, label: "Messages", path: "/messages", badge: 3 },
 ];

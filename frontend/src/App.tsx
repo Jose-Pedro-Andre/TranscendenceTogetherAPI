@@ -14,9 +14,10 @@ import Friends from "./pages/Friends";
 import FriendProfile from "./pages/FriendProfile";
 import Messages from "./pages/Messages";
 import Settings from "./pages/Settings";
-import MyRooms from "./pages/MyRooms";
+import Rooms from "./pages/Rooms";
 import Room from "./pages/Room";
-
+import Overview from "./pages/Overview";
+import CreateRoom from "./pages/CreateRoom";
 
 const queryClient = new QueryClient();
 
@@ -40,12 +41,14 @@ const App = () => (
           {/* <Route path="/profile/" element={<AppLayout><Profile /></AppLayout>} /> */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/messages" element={<Messages />} />
-          <Route path="/myrooms" element={<MyRooms />} />
+          <Route path="/rooms" element={<Rooms />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/room/:id" element={<Room />} />
           {/* <Route path="/friendsProfile" element={<Friends />} /> */}
           <Route path="/friendsProfile/:username" element={<FriendProfile />} />
           <Route path="/friensProfile" element={<Friends />} />
+          <Route path="/overview" element={<Overview />} />
+          <Route path="/createroom" element={<CreateRoom />} />
           {/* <Route path="/friensProfile/:username" element={<AppLayout><FriendProfile /></AppLayout>} /> */}
           <Route path="*" element={<NotFound />} />
         </Routes>

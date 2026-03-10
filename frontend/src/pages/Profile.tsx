@@ -54,7 +54,7 @@ const Profile = () => {
         <Sidebar />
         <div className="flex-1 flex flex-col min-h-screen">
           <Header name="Room" />
-          <div className="max-w-2xl mx-auto space-y-8">
+          <div className="max-w-2xl mx-auto space-y-10 px-6 py-6">
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-2xl font-display font-bold text-foreground">Meu Perfil</h1>
@@ -80,7 +80,7 @@ const Profile = () => {
 
             {/* Info cards */}
             <div className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
                 <InfoItem icon={<Mail size={14} />} label="Email" value={email} />
                 <InfoItem icon={<Phone size={14} />} label="Telefone" value={phone} />
                 <InfoItem icon={<Calendar size={14} />} label="Data de Nascimento" value={dob ? format(dob, "dd 'de' MMMM 'de' yyyy", { locale: pt }) : "—"} />
@@ -88,7 +88,7 @@ const Profile = () => {
                 <InfoItem icon={<Flag size={14} />} label="Província / Estado" value={state || "—"} />
                 <InfoItem icon={<User size={14} />} label="Username" value={`@${username}`} />
               </div>
-              <div className="pt-3 border-t border-border">
+              <div className="pt-6 mt-4 border-t border-border">
                 <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Bio</p>
                 <p className="text-sm text-foreground">{bio}</p>
               </div>
@@ -116,7 +116,7 @@ const Profile = () => {
           </div>
 
           {/* Avatar Section */}
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-6 py-2">
             <div className="relative">
               <div className="w-24 h-24 rounded-2xl bg-card border-2 border-border flex items-center justify-center overflow-hidden">
                 <span className="text-3xl font-display font-bold text-primary">
@@ -227,8 +227,8 @@ const Profile = () => {
 };
 
 const InfoItem = ({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) => (
-  <div>
-    <p className="text-xs text-muted-foreground uppercase tracking-wider flex items-center gap-1.5 mb-1">
+  <div className="py-2">
+    <p className="text-xs text-muted-foreground uppercase tracking-wider flex items-center gap-1.5 mb-2">
       {icon} {label}
     </p>
     <p className="text-sm text-foreground">{value}</p>
