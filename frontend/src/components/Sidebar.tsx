@@ -1,19 +1,19 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Home, BarChart2, Tv, Users, MessageCircle, Settings, LogOut, Search, Bell } from "lucide-react";
-import  Header  from "./Header.tsx";
+import Header from "./Header.tsx";
 
 const navItems = [
   { icon: Home, label: "Home", path: "/home" },
   { icon: BarChart2, label: "Overview", path: "/overview" },
   { icon: Tv, label: "Rooms", path: "/rooms" },
   { icon: Users, label: "Friends", path: "/friends" },
-  { icon: MessageCircle, label: "Messages", path: "/messages", badge: 3 },
+  { icon: MessageCircle, label: "Messages", path: "/messages", badge: "9" },
 ];
 
 const bottomItems = [
   { icon: Settings, label: "Settings", path: "/settings" },
-  { icon: LogOut, label: "Sign out", path: "/signout" },
+  { icon: LogOut, label: "Sign out", path: "/login" },
 ];
 
 export default function Sidebar({ children }: { children: ReactNode }) {
@@ -22,18 +22,17 @@ export default function Sidebar({ children }: { children: ReactNode }) {
   return (
     <div className="flex h-screen overflow-hidden sticky top-0">
       {/* Sidebar */}
-      <aside className="w-56 flex flex-col bg-card border-r border-border shrink-0">
-        <div className="p-5 flex items-center gap-2">
+      <aside className="w-18 sm:w-56 flex flex-col justify-center bg-card border-r border-border shrink-0">
+        <a href="/home" className="p-5 flex items-center gap-0 sm:gap-2 justify-center sm:justify-start">
           <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center">
-          <img
-            src="/favicon.ico"
-            alt="Logo"
-            className="w-6 h-6 object-contain"
-          />
+            <img
+              src="/favicon.ico"
+              alt="Logo"
+              className="w-6 h-6 object-contain"
+            />
           </div>
-          <span className="font-display font-bold text-foreground tracking-tight">TOGETHER</span>
-        </div>
-
+          <span className="hidden sm:inline-block font-display font-bold text-foreground tracking-tight">TOGETHER</span>
+        </a>
         <nav className="flex-1 px-3 py-2 space-y-1">
           {navItems.map((item) => {
             const active = pathname === item.path;
@@ -41,16 +40,15 @@ export default function Sidebar({ children }: { children: ReactNode }) {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
-                  active
-                    ? "bg-primary/10 text-primary font-medium"
-                    : "text-muted-foreground hover:text-foreground hover:bg-surface"
-                }`}
+                className={`relative flex items-center gap-0 sm:gap-3 align-middle justify-center sm:justify-start px-0 sm:px-3 py-2.5 rounded-lg text-sm transition-colors ${active
+                  ? "bg-primary/10 text-primary font-medium"
+                  : "text-muted-foreground hover:text-foreground hover:bg-surface"
+                  }`}
               >
                 <item.icon size={18} />
-                <span>{item.label}</span>
+                <span className="hidden sm:inline-block">{item.label}</span>
                 {item.badge && (
-                  <span className="ml-auto bg-primary text-primary-foreground text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                  <span className="absolute right-1 top-4  sm:relative sm:top-auto sm:ml-auto bg-primary text-primary-foreground text-xs font-bold px-1 py-0.2 rounded-full  text-center ">
                     {item.badge}
                   </span>
                 )}
@@ -64,15 +62,15 @@ export default function Sidebar({ children }: { children: ReactNode }) {
             <Link
               key={item.path}
               to={item.path}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-surface transition-colors"
+              className="flex items-center gap-0 justify-center sm:justify-start sm:gap-3 px-3 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-surface transition-colors"
             >
               <item.icon size={18} />
-              <span>{item.label}</span>
+              <span className="hidden sm:inline-block">{item.label}</span>
             </Link>
           ))}
         </div>
       </aside>
 
-      </div>
+    </div >
   );
 }

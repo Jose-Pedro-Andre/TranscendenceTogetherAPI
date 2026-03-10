@@ -21,6 +21,8 @@ interface ChatContact {
   messages: ChatMessage[];
 }
 
+// const [userSelected, setUserSelected] = useState<string>("null");
+
 const initialContacts: ChatContact[] = [
   {
     name: "Domingas Quissanga.",
@@ -71,6 +73,7 @@ const Messages = ({ }: MessagesProps) => {
     chatUser ? initialContacts.find((c) => c.username === chatUser) || null : null
   );
   const [newMessage, setNewMessage] = useState("");
+  const [textareaRows, setTextareaRows] = useState(1);
   const [chatMessages, setChatMessages] = useState<Record<string, ChatMessage[]>>(
     Object.fromEntries(initialContacts.map((c) => [c.username, c.messages]))
   );
@@ -90,6 +93,7 @@ const Messages = ({ }: MessagesProps) => {
       [selectedContact.username]: [...(prev[selectedContact.username] || []), msg],
     }));
     setNewMessage("");
+    setTextareaRows(1);
   };
 
   const messages = selectedContact ? chatMessages[selectedContact.username] || [] : [];
@@ -100,24 +104,24 @@ const Messages = ({ }: MessagesProps) => {
   }, [messages, selectedContact]);
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className="flex h-screen overflow-hidden bg-background">
       <Sidebar />
 
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div className="flex-1 flex flex-col h-screen overflow-hidden">
         <Header name="Room" />
-        <div className="mt-6 ms-6 max-w-4xl ml-2 h-[calc(100vh-8rem)]">
-          <div className="flex h-full bg-card rounded-xl border border-border overflow-hidden">
+        <div className="px-6 pt-6 pb-4 flex-1 min-h-0 overflow-hidden">
+          <div className="flex h-[calc(100%-1rem)] bg-card rounded-xl border border-border overflow-hidden">
             {/* Contact list */}
-            <div className={`w-72 border-r border-border flex flex-col shrink-0 ${selectedContact ? "hidden md:flex" : "flex"}`}>
-              <div className="p-4 border-b border-border">
+            <div className={`w-72 border-r border-border flex flex-col shrink-0 overflow-hidden ${selectedContact ? "hidden md:flex" : "flex"}`}>
+              <div className="p-5 border-b border-border">
                 <h2 className="text-lg font-display font-bold text-foreground">Messages</h2>
               </div>
-              <div className="flex-1 overflow-y-auto">
+              <div className="flex-1 min-h-0 overflow-y-auto scrollbar-thin scrollbar-thumb-primary/50 scrollbar-track-transparent">
                 {contacts.map((contact) => (
                   <button
                     key={contact.username}
                     onClick={() => setSelectedContact(contact)}
-                    className={`w-full flex items-center gap-3 p-3 text-left hover:bg-surface transition-colors ${selectedContact?.username === contact.username ? "bg-surface" : ""
+                    className={`w-full flex items-center gap-3 p-3 text-left hover:bg-surface transition-colors ${selectedContact?.username === contact.username ? "bg-secondary text-primary-foreground" : ""
                       }`}
                   >
                     <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary text-sm font-bold shrink-0">
@@ -141,7 +145,7 @@ const Messages = ({ }: MessagesProps) => {
             </div>
 
             {/* Chat area */}
-            <div className={`flex-1 flex flex-col ${!selectedContact ? "hidden md:flex" : "flex"}`}>
+            <div className={`flex-1 flex flex-col min-h-0 overflow-hidden ${!selectedContact ? "hidden md:flex" : "flex"}`}>
               {selectedContact ? (
                 <>
                   <div className="p-4 border-b border-border flex items-center gap-3">
@@ -160,17 +164,17 @@ const Messages = ({ }: MessagesProps) => {
                     </div>
                   </div>
 
-                  <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                  <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-3 scrollbar-thin scrollbar-thumb-primary/50 scrollbar-track-transparent">
                     {messages.map((msg) => (
                       <div key={msg.id} className={`flex ${msg.from === "me" ? "justify-end" : "justify-start"}`}>
                         <div
-                          className={`max-w-[70%] px-3 py-2 rounded-xl text-sm ${msg.from === "me"
-                              ? "bg-primary text-primary-foreground rounded-br-sm"
-                              : "bg-surface text-foreground rounded-bl-sm"
+                          className={`px-3 py-2 rounded-xl text-sm ${msg.from === "me"
+                            ? "bg-primary text-primary-foreground rounded-br-sm rounded-tr-none"
+                            : "bg-secondary text-foreground rounded-bl-sm rounded-tl-none"
                             }`}
                         >
-                          <p>{msg.text}</p>
-                          <span className={`text-[10px] mt-1 block ${msg.from === "me" ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
+                          <div className="whitespace-pre-wrap break-words max-w-[140px] sm:max-w-[240px] md:max-w-[10rem] lg:max-w-[20rem] xl:max-w-[35rem] flex-wrap "><p>{msg.text}</p></div>
+                          <span className={`text-[10px]  mt-1 block ${msg.from === "me" ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
                             {msg.time}
                           </span>
                         </div>
@@ -179,19 +183,23 @@ const Messages = ({ }: MessagesProps) => {
                     <div ref={messagesEndRef}></div>
                   </div>
 
-                  <div className="p-4 border-t border-border flex items-center gap-2">
-                    <input
+                  <div className="bg-secondary p-4 border-t border-border flex items-end gap-2">
+                    <textarea
                       value={newMessage}
-                      onChange={(e) => setNewMessage(e.target.value)}
-                      onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                      placeholder="Type a message..."
-                      className="flex-1 bg-surface rounded-lg px-3 py-2 text-sm text-black placeholder:text-muted-foreground border-none outline-none"
+                      onChange={(e) => {
+                        setNewMessage(e.target.value);
+                        const lines = e.target.value.split('\n').length;
+                        setTextareaRows(Math.min(lines, 4));
+                      }}
+                      rows={textareaRows}
+                      placeholder="Type a message"
+                      className="m-0 flex-1 bg-black/10 rounded-sm px-3 py-3 text-sm text-foreground placeholder:text-muted-foreground border-none outline-none resize-none overflow-y-auto scrollbar-thin  scrollbar-thumb-primary scrollbar-track-card"
+                      style={{ lineHeight: '1.5' }}
                     />
                     <button
                       onClick={handleSend}
-                      className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-primary-foreground hover:bg-primary/90 transition-colors"
-                    >
-                      <Send size={16} />
+                      className="m-0 px-5 py-2.5 rounded-sm gap-2 bg-primary flex items-center justify-center text-primary-foreground hover:bg-primary/90 transition-colors">
+                      <Send size={20} /> 
                     </button>
                   </div>
                 </>
