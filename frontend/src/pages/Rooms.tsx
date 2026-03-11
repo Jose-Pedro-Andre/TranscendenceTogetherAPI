@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
-import { Users, Clock, Play, ImageIcon } from "lucide-react";
+import { Users, Clock, Play, ImageIcon, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface Room {
@@ -50,29 +50,6 @@ const rooms: Room[] = [
     type: "public",
   },
   {
-    id: "4",
-    name: "Sala Terror",
-    movieTitle: "O Exorcista",
-    movieDescription: "Um dos filmes de terror mais famosos da história.",
-    movieImage: "",
-    viewers: 345,
-    schedule: "23:00 - 01:00",
-    isLive: false,
-    type: "public",
-  },
-  {
-    id: "5",
-    name: "Sala Animação",
-    movieTitle: "Encanto",
-    movieDescription: "Uma jovem descobre o segredo da magia da sua família.",
-    movieImage: "https://image.tmdb.org/t/p/w300/4j0PNHkMr5ax3IA8tjtxcmPU3QT.jpg",
-    viewers: 721,
-    schedule: "18:00 - 20:00",
-    isLive: true,
-    type: "public",
-  },
-
-  {
     id: "6",
     name: "Minha Sala Marvel",
     movieTitle: "Pantera Negra",
@@ -94,7 +71,6 @@ const rooms: Room[] = [
     isLive: false,
     type: "my",
   },
-
   {
     id: "8",
     name: "Sala do João",
@@ -106,28 +82,30 @@ const rooms: Room[] = [
     isLive: true,
     type: "joined",
   },
-  {
-    id: "9",
-    name: "Sala da Maria",
-    movieTitle: "Harry Potter",
-    movieDescription: "O jovem bruxo enfrenta Voldemort.",
-    movieImage: "",
-    viewers: 603,
-    schedule: "19:00 - 22:00",
-    isLive: false,
-    type: "joined",
-  },
 ];
 
-const MyRooms = () => {
+const Rooms = () => {
   const navigate = useNavigate();
 
   const publicRooms = rooms.filter((r) => r.type === "public");
   const myRooms = rooms.filter((r) => r.type === "my");
   const joinedRooms = rooms.filter((r) => r.type === "joined");
 
-  const renderRooms = (roomsList: Room[]) => (
+  const renderRooms = (roomsList: Room[], isMyRooms = false) => (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      {/* Card para criar sala só em Minhas Salas */}
+      {isMyRooms && (
+        <div
+          onClick={() => navigate("/createroom")}
+          className="flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl h-44 cursor-pointer hover:border-primary/40 transition-colors"
+        >
+          <Plus size={40} className="text-muted-foreground mb-2" />
+          <span className="text-sm text-muted-foreground font-medium">
+            Criar Sala
+          </span>
+        </div>
+      )}
+
       {roomsList.map((room) => (
         <div
           key={room.id}
@@ -205,7 +183,9 @@ const MyRooms = () => {
 
         <div className="m-6 space-y-10">
           <div>
-            <h2 className="text-2xl font-bold text-foreground">Salas disponíveis para assistir em conjunto</h2>
+            <h2 className="text-2xl font-bold text-foreground">
+              Salas disponíveis para assistir em conjunto
+            </h2>
           </div>
 
           <div className="space-y-6">
@@ -216,7 +196,7 @@ const MyRooms = () => {
 
             <div>
               <h2 className="text-lg font-semibold mb-4">Minhas Salas</h2>
-              {renderRooms(myRooms)}
+              {renderRooms(myRooms, true)}
             </div>
 
             <div>
@@ -230,4 +210,4 @@ const MyRooms = () => {
   );
 };
 
-export default MyRooms;
+export default Rooms;
