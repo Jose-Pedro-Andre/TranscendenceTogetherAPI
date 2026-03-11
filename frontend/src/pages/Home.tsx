@@ -2,7 +2,7 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import VideoPlayer from "@/components/VideoPlayer";
 import ViewersList from "@/components/ViewersList";
-import { ThumbsUp, Share2, Bookmark, Eye } from "lucide-react";
+import { Video, ScreenShare, CirclePlay, Eye } from "lucide-react";
 import LiveChat from "@/components/LiveChat";
 import { useNavigate } from "react-router-dom";
 
@@ -51,14 +51,16 @@ const Home = () => {
 
                   <div className="flex items-center gap-2">
                     <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-medium hover:bg-secondary/80 transition-colors">
-                      <ThumbsUp className="w-4 h-4" />
-                      2.4K
+                      <Video className="w-4 h-4" />
+                      Videocall
                     </button>
                     <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-medium hover:bg-secondary/80 transition-colors">
-                      <Share2 className="w-4 h-4" />
+                      <ScreenShare className="w-4 h-4" />
+                      Espelhar
                     </button>
                     <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-medium hover:bg-secondary/80 transition-colors">
-                      <Bookmark className="w-4 h-4" />
+                      <CirclePlay className="w-4 h-4" />
+                      Multimídia
                     </button>
                   </div>
                 </div>

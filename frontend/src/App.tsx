@@ -16,13 +16,9 @@ import Messages from "./pages/Messages";
 import Settings from "./pages/Settings";
 import Rooms from "./pages/Rooms";
 import Room from "./pages/Room";
-<<<<<<< HEAD
 import Overview from "./pages/Overview";
 import CreateRoom from "./pages/CreateRoom";
-=======
-import PageError from "./pages/InBuilding";
 import InBuilding from "./pages/InBuilding";
->>>>>>> 609f5b6e166b454dbfb68de7cffd2a84e4d34bf1
 
 const queryClient = new QueryClient();
 
@@ -40,7 +36,6 @@ const App = () => (
         <Routes>
           <Route path="/" element={<InBuilding />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/overview" element={<PageError name="Overview" />} />
           <Route path="/create-account" element={<SignUp />} />
           <Route path="/home" element={<Home />} />
           <Route path="/friends" element={<Friends />} />
