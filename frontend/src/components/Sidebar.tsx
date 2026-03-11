@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Home, BarChart2, Tv, Users, MessageCircle, Settings, LogOut, Search, Bell } from "lucide-react";
-import Header from "./Header.tsx";
 
 const navItems = [
   { icon: Home, label: "Home", path: "/home" },
@@ -57,18 +56,22 @@ export default function Sidebar({ children }: { children: ReactNode }) {
           })}
         </nav>
 
-        <div className="px-3 py-4 border-t border-border space-y-1">
-          {bottomItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className="flex items-center gap-0 justify-center sm:justify-start sm:gap-3 px-3 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-surface transition-colors"
+        <nav className="px-3 py-4 border-t border-border space-y-1">
+          {bottomItems.map((item) => {
+            const active = pathname === item.path;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`relative flex items-center gap-0 sm:gap-3 align-middle justify-center sm:justify-start px-0 sm:px-3 py-2.5 rounded-lg text-sm transition-colors ${active
+                  ? "bg-primary/10 text-primary font-medium"
+                  : "text-muted-foreground hover:text-foreground hover:bg-surface"}`}
             >
               <item.icon size={18} />
               <span className="hidden sm:inline-block">{item.label}</span>
-            </Link>
-          ))}
-        </div>
+            </Link>);
+        })}
+        </nav>
       </aside>
 
     </div >
