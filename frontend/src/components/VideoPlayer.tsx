@@ -70,7 +70,7 @@
        hls.loadSource(videoSrc);
        hls.attachMedia(video);
        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-         video.play();
+        //  video.play();
        });
        return () => {
          hls.destroy();
@@ -81,7 +81,7 @@
      <video
        ref={videoRef}
        controls
-       width="800"
+       width="1350"
      />
    );
 }

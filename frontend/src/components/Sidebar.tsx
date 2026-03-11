@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Home, BarChart2, Tv, Users, MessageCircle, Settings, LogOut, Search, Bell } from "lucide-react";
 
@@ -15,7 +14,7 @@ const bottomItems = [
   { icon: LogOut, label: "Sign out", path: "/login" },
 ];
 
-export default function Sidebar({ children }: { children: ReactNode }) {
+export default function Sidebar() {
   const { pathname } = useLocation();
 
   return (
