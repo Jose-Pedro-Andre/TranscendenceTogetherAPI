@@ -19,9 +19,9 @@ const rooms: Room[] = [
   {
     id: "1",
     name: "Sala Épica",
-    movieTitle: "O Rei Leão",
-    movieDescription: "Simba descobre o verdadeiro significado da coragem.",
-    movieImage: "https://image.tmdb.org/t/p/w300/sKCr78MXSLixwmZ8DyJLrpMsd15.jpg",
+    movieTitle: "WildFlower",
+    movieDescription: "Sinta o poder da boa voz com a Bilie Eilish.",
+    movieImage: "https://images.genius.com/5e7bf410789d01a90983b2641b88e5bd.1000x1000x1.png",
     viewers: 1243,
     schedule: "20:00 - 22:00",
     isLive: true,
