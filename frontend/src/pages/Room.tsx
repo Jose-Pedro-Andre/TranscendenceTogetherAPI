@@ -1,6 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import VideoPlayer from "@/components/VideoPlayer";
+import VideoPlayerYoutube from "@/components/VideoPlayerYoutube";
 import ViewersList from "@/components/ViewersList";
 import { Video, ScreenShare, CirclePlay, Eye, UserPlus} from "lucide-react";
 import LiveChat from "@/components/LiveChat";
