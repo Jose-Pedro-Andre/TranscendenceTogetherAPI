@@ -17,7 +17,7 @@ const Room = () => {
           <div className="flex flex-col gap-6 xl:flex-row">
             {/* Main content */}
             <div className="flex-1 space-y-5">
-              <VideoPlayer />
+              <VideoPlayerYoutube />
 
               {/* Video info */}
               <div className="space-y-4">
@@ -51,7 +51,7 @@ const Room = () => {
 
                   <div className="space-y-2">
                     <h1 className="text-xl font-bold text-foreground leading-tight">
-                      O Rei Leão — Sessão Especial de Cinema
+                      WildFlower - By Billie Eilish
                     </h1>
                     <p className="text-sm text-muted-foreground max-w-xl w-full leading-relaxed">
                       Assista junto com a comunidade! Uma experiência cinematográfica compartilhada com reações em tempo real. Participe do chat e curta esse clássico com milhares de fãs.

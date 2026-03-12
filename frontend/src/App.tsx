@@ -18,6 +18,7 @@ import Rooms from "./pages/Rooms";
 import Room from "./pages/Room";
 import Overview from "./pages/Overview";
 import CreateRoom from "./pages/CreateRoom";
+import PageError from "./pages/InBuilding";
 import InBuilding from "./pages/InBuilding";
 
 const queryClient = new QueryClient();
