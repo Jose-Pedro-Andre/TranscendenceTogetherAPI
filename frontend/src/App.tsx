@@ -37,7 +37,6 @@ const App = () => (
         <Routes>
           <Route path="/" element={<InBuilding />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/overview" element={<PageError name="Overview" />} />
           <Route path="/create-account" element={<SignUp />} />
           <Route path="/home" element={<Home />} />
           <Route path="/friends" element={<Friends />} />

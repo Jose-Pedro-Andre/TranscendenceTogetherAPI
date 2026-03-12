@@ -6,6 +6,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
 
 interface ThemePreset {
   id: string;
@@ -87,114 +89,121 @@ const Settings = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
-      <div>
-        <h1 className="text-2xl font-display font-bold text-foreground">Configurações</h1>
-        <p className="text-sm text-muted-foreground mt-1">Personalize a sua experiência</p>
-      </div>
+    <div className="flex min-h-screen bg-background">
+      <Sidebar />
 
-      {/* Theme Section */}
-      <SettingsSection icon={<Palette size={18} />} title="Aparência & Temas">
-        <p className="text-xs text-muted-foreground mb-4">Escolha um tema predefinido ou personalize as cores</p>
+      <div className="flex-1 flex flex-col min-h-screen">
+        <Header name="Settings" />
+          <div className="max-w-2xl my-2 mx-2 sm:mx-6 space-y-6">
+            <div>
+              <h1 className="text-2xl font-display font-bold text-foreground">Configurações</h1>
+              <p className="text-sm text-muted-foreground mt-1">Personalize a sua experiência</p>
+            </div>
 
-        {/* Preset Themes */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
-          {themePresets.map((theme) => (
-            <button
-              key={theme.id}
-              onClick={() => applyTheme(theme.id)}
-              className={`relative p-3 rounded-lg border transition-all text-left ${activeTheme === theme.id
-                ? "border-primary bg-primary/5"
-                : "border-border hover:border-muted-foreground/30"
-                }`}
-            >
-              {activeTheme === theme.id && (
-                <span className="absolute top-2 right-2 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
-                  <Check size={12} className="text-primary-foreground" />
-                </span>
-              )}
-              <div className="flex gap-1 mb-2">
-                {Object.values(theme.colors).slice(0, 4).map((c, i) => (
-                  <div key={i} className="w-5 h-5 rounded-full border border-border" style={{ backgroundColor: c }} />
+            {/* Theme Section */}
+            <SettingsSection icon={<Palette size={18} />} title="Aparência & Temas">
+              <p className="text-xs text-muted-foreground mb-4">Escolha um tema predefinido ou personalize as cores</p>
+
+              {/* Preset Themes */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+                {themePresets.map((theme) => (
+                  <button
+                    key={theme.id}
+                    onClick={() => applyTheme(theme.id)}
+                    className={`relative p-3 rounded-lg border transition-all text-left ${activeTheme === theme.id
+                      ? "border-primary bg-primary/5"
+                      : "border-border hover:border-muted-foreground/30"
+                      }`}
+                  >
+                    {activeTheme === theme.id && (
+                      <span className="absolute top-2 right-2 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+                        <Check size={12} className="text-primary-foreground" />
+                      </span>
+                    )}
+                    <div className="flex gap-1 mb-2">
+                      {Object.values(theme.colors).slice(0, 4).map((c, i) => (
+                        <div key={i} className="w-5 h-5 rounded-full border border-border" style={{ backgroundColor: c }} />
+                      ))}
+                    </div>
+                    <p className="text-xs font-medium text-foreground">{theme.name}</p>
+                  </button>
                 ))}
               </div>
-              <p className="text-xs font-medium text-foreground">{theme.name}</p>
-            </button>
-          ))}
-        </div>
 
-        {/* Custom Color */}
-        <div>
-          <p className="text-xs text-muted-foreground mb-3">Ou escolha uma cor primária personalizada:</p>
-          <div className="flex flex-wrap gap-2">
-            {customColorOptions.map((color) => (
-              <button
-                key={color.value}
-                onClick={() => applyCustomColor(color.value)}
-                className={`w-9 h-9 rounded-lg border-2 transition-all hover:scale-110 ${activeTheme === "custom" && customPrimary === color.value
-                  ? "border-foreground scale-110"
-                  : "border-transparent"
-                  }`}
-                style={{ backgroundColor: color.value }}
-                title={color.label}
-              />
-            ))}
+              {/* Custom Color */}
+              <div>
+                <p className="text-xs text-muted-foreground mb-3">Ou escolha uma cor primária personalizada:</p>
+                <div className="flex flex-wrap gap-2">
+                  {customColorOptions.map((color) => (
+                    <button
+                      key={color.value}
+                      onClick={() => applyCustomColor(color.value)}
+                      className={`w-9 h-9 rounded-lg border-2 transition-all hover:scale-110 ${activeTheme === "custom" && customPrimary === color.value
+                        ? "border-foreground scale-110"
+                        : "border-transparent"
+                        }`}
+                      style={{ backgroundColor: color.value }}
+                      title={color.label}
+                    />
+                  ))}
+                </div>
+              </div>
+            </SettingsSection>
+
+            {/* Notifications */}
+            <SettingsSection icon={<Bell size={18} />} title="Notificações">
+              <SettingsToggle label="Notificações push" description="Receber notificações de actividades" checked={notifications} onCheckedChange={setNotifications} />
+              <SettingsToggle label="Sons" description="Reproduzir sons ao receber notificações" checked={soundEnabled} onCheckedChange={setSoundEnabled} />
+            </SettingsSection>
+
+            {/* Privacy */}
+            <SettingsSection icon={<Shield size={18} />} title="Privacidade & Segurança">
+              <SettingsToggle label="Perfil privado" description="Apenas amigos podem ver o seu perfil" checked={privateProfile} onCheckedChange={setPrivateProfile} />
+              <SettingsToggle label="Mostrar status online" description="Os outros podem ver quando está online" checked={onlineStatus} onCheckedChange={setOnlineStatus} />
+            </SettingsSection>
+
+            {/* Playback */}
+            <SettingsSection icon={<Monitor size={18} />} title="Reprodução">
+              <SettingsToggle label="Reprodução automática" description="Reproduzir o próximo conteúdo automaticamente" checked={autoplay} onCheckedChange={setAutoplay} />
+            </SettingsSection>
+
+            {/* Language */}
+            <SettingsSection icon={<Globe size={18} />} title="Idioma">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-foreground">Idioma da interface</p>
+                  <p className="text-xs text-muted-foreground">Selecione o idioma preferido</p>
+                </div>
+                <Select value={language} onValueChange={setLanguage}>
+                  <SelectTrigger className="w-40 bg-card border-border">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="pt">Português</SelectItem>
+                    <SelectItem value="en">English</SelectItem>
+                    <SelectItem value="fr">Français</SelectItem>
+                    <SelectItem value="es">Español</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </SettingsSection>
+
+            {/* Danger zone */}
+            <div className="bg-card rounded-xl border border-destructive/30 p-5 space-y-3">
+              <h3 className="text-sm font-medium text-destructive flex items-center gap-2">
+                <Lock size={16} /> Zona de Perigo
+              </h3>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-foreground">Eliminar conta</p>
+                  <p className="text-xs text-muted-foreground">Esta ação é irreversível</p>
+                </div>
+                <Button variant="destructive" size="sm" onClick={() => toast.error("Esta funcionalidade será implementada em breve.")}>
+                  Eliminar
+                </Button>
+              </div>
+            </div>
           </div>
-        </div>
-      </SettingsSection>
-
-      {/* Notifications */}
-      <SettingsSection icon={<Bell size={18} />} title="Notificações">
-        <SettingsToggle label="Notificações push" description="Receber notificações de actividades" checked={notifications} onCheckedChange={setNotifications} />
-        <SettingsToggle label="Sons" description="Reproduzir sons ao receber notificações" checked={soundEnabled} onCheckedChange={setSoundEnabled} />
-      </SettingsSection>
-
-      {/* Privacy */}
-      <SettingsSection icon={<Shield size={18} />} title="Privacidade & Segurança">
-        <SettingsToggle label="Perfil privado" description="Apenas amigos podem ver o seu perfil" checked={privateProfile} onCheckedChange={setPrivateProfile} />
-        <SettingsToggle label="Mostrar status online" description="Os outros podem ver quando está online" checked={onlineStatus} onCheckedChange={setOnlineStatus} />
-      </SettingsSection>
-
-      {/* Playback */}
-      <SettingsSection icon={<Monitor size={18} />} title="Reprodução">
-        <SettingsToggle label="Reprodução automática" description="Reproduzir o próximo conteúdo automaticamente" checked={autoplay} onCheckedChange={setAutoplay} />
-      </SettingsSection>
-
-      {/* Language */}
-      <SettingsSection icon={<Globe size={18} />} title="Idioma">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-foreground">Idioma da interface</p>
-            <p className="text-xs text-muted-foreground">Selecione o idioma preferido</p>
-          </div>
-          <Select value={language} onValueChange={setLanguage}>
-            <SelectTrigger className="w-40 bg-card border-border">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="pt">Português</SelectItem>
-              <SelectItem value="en">English</SelectItem>
-              <SelectItem value="fr">Français</SelectItem>
-              <SelectItem value="es">Español</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </SettingsSection>
-
-      {/* Danger zone */}
-      <div className="bg-card rounded-xl border border-destructive/30 p-5 space-y-3">
-        <h3 className="text-sm font-medium text-destructive flex items-center gap-2">
-          <Lock size={16} /> Zona de Perigo
-        </h3>
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-foreground">Eliminar conta</p>
-            <p className="text-xs text-muted-foreground">Esta ação é irreversível</p>
-          </div>
-          <Button variant="destructive" size="sm" onClick={() => toast.error("Esta funcionalidade será implementada em breve.")}>
-            Eliminar
-          </Button>
-        </div>
       </div>
     </div>
   );

@@ -1,22 +1,18 @@
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
+import { useParams } from "react-router-dom";
+import Sidebar from "@/components/Sidebar";
+import Header from "@/components/Header";
 import VideoPlayer from "@/components/VideoPlayer";
 import ViewersList from "@/components/ViewersList";
 import { ThumbsUp, Share2, Bookmark, Eye } from "lucide-react";
 import LiveChat from "@/components/LiveChat";
-import { useNavigate } from "react-router-dom";
 
-const Homes = () => {
-    const navigate = useNavigate();
-}
-
-type HomeProps = {
-  name?: string;
-};
 
 const Home = () => {
+  const { id } = useParams();
+
   return (
-    <div className="flex min-h-screen bg-background">
+   
+     <div className="flex min-h-screen bg-background">
       <Sidebar />
 
       <div className="flex-1 flex flex-col min-h-screen">
@@ -72,7 +68,7 @@ const Home = () => {
                     <p className="text-sm font-semibold text-foreground">CineLive</p>
                     <p className="text-xs text-muted-foreground">48K seguidores</p>
                   </div>
-                  <button  className="ml-4 px-5 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
+                  <button className="ml-4 px-5 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
                     Add Friend
                   </button>
                 </div>

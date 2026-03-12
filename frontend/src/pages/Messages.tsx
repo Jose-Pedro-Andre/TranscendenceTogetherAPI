@@ -109,7 +109,7 @@ const Messages = ({ }: MessagesProps) => {
 
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         <Header name="Room" />
-        <div className="px-6 pt-6 pb-4 flex-1 min-h-0 overflow-hidden">
+        <div className="px-2 sm:px-6 py-2 flex-1 min-h-0 overflow-hidden">
           <div className="flex h-[calc(100%-1rem)] bg-card rounded-xl border border-border overflow-hidden">
             {/* Contact list */}
             <div className={`w-72 border-r border-border flex flex-col shrink-0 overflow-hidden ${selectedContact ? "hidden md:flex" : "flex"}`}>

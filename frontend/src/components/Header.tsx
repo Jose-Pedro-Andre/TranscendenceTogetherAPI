@@ -8,7 +8,7 @@ type ScreenName = {
 
 const Header = function ({ name = "Undefined", username = "" }: ScreenName) {
   return (
-    <header className="flex items-center justify-between px-6 py-4 border-b border-border">
+    <header className="flex items-center justify-between px-2 sm:px-6 py-4 border-b border-border">
       
       <div className="flex items-center gap-4">
         <span className="text-xs font-semibold tracking-widest uppercase text-muted-foreground">
